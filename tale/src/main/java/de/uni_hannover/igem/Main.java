@@ -11,7 +11,6 @@ public class Main {
 	public static void main(String[] args) {
 
 		List<Tale> talesequence = ExactScan.getTale("ACTACAAGKLSSENF");
-
 		try {
 			System.out.println(Misc.getCounterSequence("ACTACAAGPENIS"));
 		} catch (Exception e) {

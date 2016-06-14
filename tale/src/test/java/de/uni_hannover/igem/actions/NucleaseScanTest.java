@@ -27,6 +27,10 @@ public class NucleaseScanTest {
 		Constants.setMaxNucleaseDistance(1);
 	}
 
+	public void addResult(Set<List<ScanResult>> set, String seq1, Integer pos1, String seq2, Integer pos2) {
+		set.add(Arrays.asList(new ScanResult(seq1, pos1), new ScanResult(seq2, pos2)));
+	}
+
 	@Test
 	public void testNucleaseScan() {
 		initializeNucleaseScanTest();
@@ -37,17 +41,17 @@ public class NucleaseScanTest {
 		Set<List<ScanResult>> expected = new HashSet<List<ScanResult>>();
 
 		/* first length = 2, second length = 2, distance = 0 or 1 */
-		expected.add(Arrays.asList(new ScanResult("at", 1), new ScanResult("ag", 3)));
-		expected.add(Arrays.asList(new ScanResult("at", 1), new ScanResult("gc", 4)));
+		addResult(expected, "at", 1, "ag", 3);
+		addResult(expected, "at", 1, "gc", 4);
 		/* first length = 3, second length = 2, distance = 0 or 1 */
-		expected.add(Arrays.asList(new ScanResult("ata", 1), new ScanResult("gc", 4)));
-		expected.add(Arrays.asList(new ScanResult("ata", 1), new ScanResult("cg", 5)));
+		addResult(expected, "ata", 1, "gc", 4);
+		addResult(expected, "ata", 1, "cg", 5);
 		/* first length = 2, second length = 3, distance = 0 or 1 */
-		expected.add(Arrays.asList(new ScanResult("at", 1), new ScanResult("agc", 3)));
-		expected.add(Arrays.asList(new ScanResult("at", 1), new ScanResult("gcg", 4)));
+		addResult(expected, "at", 1, "agc", 3);
+		addResult(expected, "at", 1, "gcg", 4);
 		/* first length = 3, second length = 3, distance = 0 or 1 */
-		expected.add(Arrays.asList(new ScanResult("ata", 1), new ScanResult("gcg", 4)));
-		expected.add(Arrays.asList(new ScanResult("ata", 1), new ScanResult("cgc", 5)));
+		addResult(expected, "ata", 1, "gcg", 4);
+		addResult(expected, "ata", 1, "cgc", 5);
 
 		assertEquals(expected, calculated);
 	}
@@ -61,10 +65,10 @@ public class NucleaseScanTest {
 				NucleaseScan.getPossibleTALes(sequence, 3));
 		Set<List<ScanResult>> expected = new HashSet<List<ScanResult>>();
 
-		expected.add(Arrays.asList(new ScanResult("ag", 3), new ScanResult("cg", 5)));
-		expected.add(Arrays.asList(new ScanResult("ag", 3), new ScanResult("gc", 6)));
-		expected.add(Arrays.asList(new ScanResult("ag", 3), new ScanResult("cgc", 5)));
-		expected.add(Arrays.asList(new ScanResult("agc", 3), new ScanResult("gc", 6)));
+		addResult(expected, "ag", 3, "cg", 5);
+		addResult(expected, "ag", 3, "gc", 6);
+		addResult(expected, "ag", 3, "cgc", 5);
+		addResult(expected, "agc", 3, "gc", 6);
 
 		assertEquals(expected, calculated);
 	}

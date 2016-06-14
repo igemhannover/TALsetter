@@ -2,6 +2,7 @@ package de.uni_hannover.igem.actions;
 
 import de.uni_hannover.igem.util.Constants;
 import de.uni_hannover.igem.util.ScanResult;
+import de.uni_hannover.igem.util.Misc;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,7 +29,19 @@ public class NucleaseScanTest {
 	}
 
 	public void addResult(Set<List<ScanResult>> set, String seq1, Integer pos1, String seq2, Integer pos2) {
-		set.add(Arrays.asList(new ScanResult(seq1, pos1), new ScanResult(seq2, pos2)));
+		String seq1complement, seq2complement;
+		try {
+			seq1complement = Misc.getCounterSequence(seq1);
+			seq2complement = Misc.getCounterSequence(seq2);
+		} catch (Exception e) {
+			return;
+		}
+		/*
+		 * One of the sequence needs to be inverted, because the TALENs bind on
+		 * opposite strands of the twin helix
+		 */
+		set.add(Arrays.asList(new ScanResult(seq1complement, pos1), new ScanResult(seq2, pos2)));
+		set.add(Arrays.asList(new ScanResult(seq1, pos1), new ScanResult(seq2complement, pos2)));
 	}
 
 	@Test

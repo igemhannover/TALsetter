@@ -6,7 +6,7 @@ public class ScanResult {
 	public Double rating;
 
 	public ScanResult(String sequence, Integer position) {
-		this.sequence = sequence;
+		this.sequence = sequence.toLowerCase();
 		this.position = position;
 	}
 
@@ -17,7 +17,7 @@ public class ScanResult {
 
 	@Override
 	public int hashCode() {
-		return sequence.hashCode() + position.hashCode();
+		return sequence.toLowerCase().hashCode() + position.hashCode();
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class ScanResult {
 	}
 
 	public void setSequence(String sequence) {
-		this.sequence = sequence;
+		this.sequence = sequence.toLowerCase();
 	}
 
 	public Integer getPosition() {

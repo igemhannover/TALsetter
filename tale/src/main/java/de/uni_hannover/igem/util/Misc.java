@@ -35,4 +35,16 @@ public class Misc {
 		return taleSequence;
 	}
 
+	public static List<Base> getSequence2Tale(String tale) {
+		List<Base> baseSequence = new ArrayList<Base>();
+		String[] taleSequence = tale.split("(?<=\\G..)");
+
+		for (String currTale : taleSequence) {
+			Tale taleEnum = Tale.valueOf(currTale.toUpperCase());
+			Base base = Base2Tale.getBase2Tale(taleEnum);
+			baseSequence.add(base);
+		}
+		return baseSequence;
+	}
+
 }

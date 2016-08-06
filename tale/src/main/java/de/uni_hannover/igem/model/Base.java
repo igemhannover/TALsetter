@@ -1,7 +1,8 @@
 package de.uni_hannover.igem.model;
 
 public enum Base {
-	C(BindingStrength.STRONG), G(BindingStrength.STRONG), A(BindingStrength.WEAK), T(BindingStrength.WEAK);
+	C(BindingStrength.STRONG), G(BindingStrength.STRONG), A(BindingStrength.WEAK), T(BindingStrength.WEAK), X(
+			BindingStrength.UNKNOWN);
 
 	private final BindingStrength strength;
 
@@ -23,6 +24,8 @@ public enum Base {
 			return T;
 		case T:
 			return A;
+		case X:
+			return X;
 		default:
 			throw new Exception("Kein passendes Gegenstück gefunden");
 		}

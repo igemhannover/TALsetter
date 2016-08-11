@@ -41,7 +41,7 @@ public class TALRater {
 		// binding-strength is more important than length and offsets are more
 		// important than binding-srength
 
-		overallRating = (lengthRating + (bindingRating * 2) + (offsetRating * 3)) / 3;
+		overallRating = (lengthRating + (bindingRating * 2) + (offsetRating * 3)) / 6;
 
 		return overallRating;
 
@@ -147,7 +147,7 @@ public class TALRater {
 				sb.append("-");
 			}
 		}
-
+		System.out.println(sb.toString());
 		return sb.toString();
 	}
 }

@@ -1,4 +1,4 @@
-package de.uni_hannover.igem.actions;
+package de.uni_hannover.igem.util;
 
 import java.util.List;
 import java.util.TreeMap;
@@ -11,8 +11,6 @@ import de.jstacs.io.FileManager;
 import de.jstacs.io.XMLParser;
 import de.uni_hannover.igem.model.Base;
 import de.uni_hannover.igem.model.BindingStrength;
-import de.uni_hannover.igem.util.Constants;
-import de.uni_hannover.igem.util.Misc;
 import projects.talen.ScanForTALENCLI;
 import projects.tals.TALgetterDiffSM;
 
@@ -21,27 +19,26 @@ public class TALRater {
 	private final static Logger logger = Logger.getLogger(TALRater.class);
 
 	/**
-	 * This method provides a rating based on the length of a TAL, the
-	 * binding-strength and the offsite-targets. The length is weighted with 1,
-	 * the binding-strength with 2 and the offsite-targets with 3.
+	 * This method provides a rating based on the length of a TAL and the
+	 * binding-strength. The length is weighted with 1, the binding-strength
+	 * with 2 and the offsite-targets with 3.
 	 * 
-	 * @param talSequence
+	 * @param taleSequence
 	 *            the TAL which should be rated
 	 * @return a rating between 0 (not good) and 1 (best)
 	 */
-	public static double getRating(String talSequence) {
+	public static double getRating(String taleSequence) {
 		double overallRating = 0.0;
 
-		double lengthRating = getLengthRating(talSequence);
+		double lengthRating = getLengthRating(taleSequence);
 
-		double bindingRating = getBindingRating(talSequence);
+		double bindingRating = getBindingRating(taleSequence);
 
-		double offsetRating = getOffsetRating(talSequence);
+		// binding-strength is more important than length
+		// TODO implement function to rate the tal regarding strong bindings
+		// (see phabricator)
 
-		// binding-strength is more important than length and offsets are more
-		// important than binding-srength
-
-		overallRating = (lengthRating + (bindingRating * 2) + (offsetRating * 3)) / 6;
+		overallRating = (lengthRating + (bindingRating * 2)) / 3;
 
 		return overallRating;
 
@@ -116,7 +113,15 @@ public class TALRater {
 		return 1 - (overallRating / baseList.size());
 	}
 
-	private static double getOffsetRating(String sequence) {
+	/**
+	 * Rates a tal depending on its off-site-targets. TODO implement with
+	 * FASTA-Sequence (see TALENOffer)
+	 * 
+	 * @param sequence
+	 *            - the TAL which should be rated
+	 * @return the best possible value from TALENOffer
+	 */
+	public static double getOffsetRating(String sequence) {
 		try {
 			TALgetterDiffSM model = (TALgetterDiffSM) XMLParser
 					.extractObjectForTags(FileManager.readInputStream(ScanForTALENCLI.class.getClassLoader()

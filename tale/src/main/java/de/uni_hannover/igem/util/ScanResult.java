@@ -1,9 +1,9 @@
 package de.uni_hannover.igem.util;
 
 public class ScanResult {
-	public String sequence;
-	public Integer position;
-	public Double rating;
+	private String sequence;
+	private Integer position;
+	private Double rating;
 
 	public ScanResult(String sequence, Integer position) {
 		this.sequence = sequence.toLowerCase();
@@ -49,8 +49,12 @@ public class ScanResult {
 
 	public Double getRating() {
 		if (rating == null) {
-			rating = 1.0; /* TODO: insert rating function here */
+			rating = 1.0;
 		}
 		return rating;
+	}
+
+	public void setRating(Double rating) {
+		this.rating = rating;
 	}
 }

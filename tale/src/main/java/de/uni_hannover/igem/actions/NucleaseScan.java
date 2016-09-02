@@ -15,9 +15,9 @@ public class NucleaseScan {
 	/**
 	 * Returns pairs of ScanResults, sorted by their rating.
 	 *
-	 * Each pair of ScanResult objects corresponds to two TALe nucleases which
+	 * Each pair of ScanResult objects corresponds to two TALe nucleuses which
 	 * attach at the given DNA sequence at a distance that is optimal for
-	 * cutting by the nuclease domains.
+	 * cutting by the nucleus domains.
 	 */
 	public static List<ScanResultPair> scanSequence(String sequence) {
 		Set<ScanResultPair> results = new HashSet<ScanResultPair>();
@@ -41,7 +41,15 @@ public class NucleaseScan {
 		return sortedResults;
 	}
 
-	public static List<ScanResultPair> getPossibleTALes(String sequence, Integer offset) {
+	/**
+	 * @param sequence
+	 * @param offset
+	 * @return List of ScanResultPairs
+	 * Each pair of ScanResult objects corresponds to two TALe nucleuses which
+	 * attach at the given DNA sequence at a distance that is optimal for
+	 * cutting by the nucleus domains.
+	 */
+	private static List<ScanResultPair> getPossibleTALes(String sequence, Integer offset) {
 		List<ScanResultPair> TALes = new ArrayList<ScanResultPair>();
 		ScanResultPair entry;
 
@@ -50,7 +58,7 @@ public class NucleaseScan {
 		int NucleaseDistanceMin = Constants.getMinNucleaseDistance();
 		int NucleaseDistanceMax = Constants.getMaxNucleaseDistance();
 		int secondTALStart;
-		String seq1, seq2, seq1complement, seq2complement;
+		String seq1, seq2;
 
 		for (int firstTALLength = TALLengthMin; firstTALLength <= TALLengthMax; firstTALLength++) {
 			for (int secondTALLength = TALLengthMin; secondTALLength <= TALLengthMax; secondTALLength++) {
@@ -67,12 +75,11 @@ public class NucleaseScan {
 					 * results in 2 possible solutions per set of TAL positions.
 					 */
 					try {
-						entry = entry = new ScanResultPair(new ScanResult(Misc.getCounterSequence(seq1), offset),
+						entry = new ScanResultPair(new ScanResult(Misc.getCounterSequence(seq1), offset),
 								new ScanResult(seq2, secondTALStart));
 						TALes.add(entry);
 					} catch (Exception e) {
 					}
-					;
 					try {
 						entry = new ScanResultPair(new ScanResult(seq1, offset),
 								new ScanResult(Misc.getCounterSequence(seq2), secondTALStart));

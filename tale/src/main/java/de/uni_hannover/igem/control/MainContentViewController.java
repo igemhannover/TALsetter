@@ -52,11 +52,11 @@ public class MainContentViewController {
 		Scene result = new Scene(new AnchorPane());
 		FXMLLoader loader;
 		switch (getSelectedAction()) {
-		case NUCLEASE_SCAN:
-			loader = new FXMLLoader(getClass().getResource("/de/uni_hannover/igem/view/NucleaseScanView.fxml"));
+		case NUCLEUS_SCAN:
+			loader = new FXMLLoader(getClass().getResource("/de/uni_hannover/igem/view/NucleusesScanView.fxml"));
 			try {
 				Parent p = (Parent) loader.load();
-				NucleaseScanViewController nucleaseScanController = loader.<NucleaseScanViewController> getController();
+				NucleusesScanViewController nucleaseScanController = loader.<NucleusesScanViewController> getController();
 				nucleaseScanController.initData(getSelectedAction(), basesTxf.getText());
 				return new Scene(p);
 			} catch (IOException e1) {
@@ -84,8 +84,8 @@ public class MainContentViewController {
 	 * @return selected Action of ComboBox actionCbx
 	 */
 	private Actions getSelectedAction() {
-		if (actionCbx.getSelectionModel().getSelectedItem().equals(Actions.NUCLEASE_SCAN.toString())) {
-			return Actions.NUCLEASE_SCAN;
+		if (actionCbx.getSelectionModel().getSelectedItem().equals(Actions.NUCLEUS_SCAN.toString())) {
+			return Actions.NUCLEUS_SCAN;
 		}
 		return Actions.EXACT_SCAN; // DEFAULT
 	}

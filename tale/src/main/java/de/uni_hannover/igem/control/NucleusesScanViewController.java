@@ -7,7 +7,6 @@ package de.uni_hannover.igem.control;
 import de.uni_hannover.igem.actions.NucleaseScan;
 import de.uni_hannover.igem.actions.ScanResultPair;
 import de.uni_hannover.igem.model.Actions;
-import de.uni_hannover.igem.util.Constants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,16 +24,16 @@ public class NucleusesScanViewController {
 	private ObservableList<ScanResultPair> resultList;
 
 	@FXML // fx:id="basesLbl"
-	private Label basesLbl; 
+	private Label basesLbl;
 
 	@FXML // fx:id="basesTxt"
-	private Text basesTxt; 
+	private Text basesTxt;
 
 	@FXML // fx:id="scanHeaderLbl"
-	private Label scanHeaderLbl; 
+	private Label scanHeaderLbl;
 
 	@FXML // fx:id="seq1Col"
-	private TableColumn<ScanResultPair, String> seq1Col; 
+	private TableColumn<ScanResultPair, String> seq1Col;
 
 	@FXML // fx:id="seq2Col"
 	private TableColumn<ScanResultPair, String> seq2Col;
@@ -58,7 +57,6 @@ public class NucleusesScanViewController {
 		this.scanHeaderLbl.setText(action.name());
 		this.basesTxt.setText(sequence);
 
-		Constants.initialize();
 		resultList = FXCollections.observableArrayList(NucleaseScan.scanSequence(sequence));
 		actionResultView.setItems(resultList);
 	}

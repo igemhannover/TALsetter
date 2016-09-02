@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import de.uni_hannover.igem.model.Actions;
-import de.uni_hannover.igem.util.Constants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,6 +45,7 @@ public class MainContentViewController {
 
 	/**
 	 * The default is a ScanView with the ExactScan.
+	 * 
 	 * @return Scene to the selected Action
 	 */
 	private Scene loadSelectedAction() {
@@ -56,7 +56,8 @@ public class MainContentViewController {
 			loader = new FXMLLoader(getClass().getResource("/de/uni_hannover/igem/view/NucleusesScanView.fxml"));
 			try {
 				Parent p = (Parent) loader.load();
-				NucleusesScanViewController nucleaseScanController = loader.<NucleusesScanViewController> getController();
+				NucleusesScanViewController nucleaseScanController = loader
+						.<NucleusesScanViewController> getController();
 				nucleaseScanController.initData(getSelectedAction(), basesTxf.getText());
 				return new Scene(p);
 			} catch (IOException e1) {
@@ -81,6 +82,7 @@ public class MainContentViewController {
 
 	/**
 	 * Default ExactScan
+	 * 
 	 * @return selected Action of ComboBox actionCbx
 	 */
 	private Actions getSelectedAction() {
@@ -92,6 +94,7 @@ public class MainContentViewController {
 
 	/**
 	 * style TextField red and show warning/error
+	 * 
 	 * @return true if input length >= 20 and an action selected
 	 */
 	private boolean checkInputValide() {
@@ -110,7 +113,6 @@ public class MainContentViewController {
 	@FXML // This method is called by the FXMLLoader when initialization is
 			// complete
 	void initialize() {
-		Constants.initialize();
 		for (Actions action : Actions.values()) {
 			observableActionList.add(action.toString());
 		}

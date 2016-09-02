@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="250.0" prefHeight="250.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="de.uni_hannover.igem.control.ScanViewController">
+  <children>
+    <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="250.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <content>
+        <AnchorPane id="Content" minHeight="200.0" minWidth="250.0" prefHeight="-1.0" prefWidth="-1.0">
+          <children>
+            <VBox prefHeight="300.0" prefWidth="-1.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                <Label id="headerLabel" fx:id="scanHeaderLbl" text="Scan">
+                  <font>
+                    <Font name="System Bold" size="16.0" />
+                  </font>
+                </Label>
+                <HBox prefHeight="-1.0" prefWidth="-1.0" spacing="5.0">
+                  <children>
+                    <Label fx:id="basesLbl" text="Base Input:">
+                      <font>
+                        <Font name="System Bold" size="12.0" />
+                      </font>
+                    </Label>
+                    <Text fx:id="basesTxt" text="Input" />
+                  </children>
+                </HBox>
+                <TableView fx:id="actionResultView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+                  <columns>
+                    <TableColumn maxWidth="80.0" prefWidth="80.0" text="Rating" fx:id="ratingCol" />
+                    <TableColumn maxWidth="80.0" prefWidth="80.0" text="Startposition" fx:id="posCol" />
+                    <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Sequenz" fx:id="seqCol" />
+                  </columns>
+                </TableView>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+            </VBox>
+          </children>
+        </AnchorPane>
+      </content>
+    </ScrollPane>
+  </children>
+</AnchorPane>

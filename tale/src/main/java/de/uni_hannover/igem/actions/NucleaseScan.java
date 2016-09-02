@@ -15,44 +15,51 @@ public class NucleaseScan {
 	/**
 	 * Returns pairs of ScanResults, sorted by their rating.
 	 *
-	 * Each pair of ScanResult objects corresponds to two TALe nucleases which
+	 * Each pair of ScanResult objects corresponds to two TALe nucleuses which
 	 * attach at the given DNA sequence at a distance that is optimal for
-	 * cutting by the nuclease domains.
+	 * cutting by the nucleus domains.
 	 */
-	public static List<List<ScanResult>> scanSequence(String sequence) {
-		Set<List<ScanResult>> results = new HashSet<List<ScanResult>>();
-		List<List<ScanResult>> sortedResults;
+	public static List<ScanResultPair> scanSequence(String sequence) {
+		Set<ScanResultPair> results = new HashSet<ScanResultPair>();
+		List<ScanResultPair> sortedResults;
 
 		for (int i = 0; i < sequence.length(); i++) {
 			results.addAll(getPossibleTALes(sequence, i));
 		}
 
-		Comparator<List<ScanResult>> comp = new Comparator<List<ScanResult>>() {
-			public int compare(List<ScanResult> a, List<ScanResult> b) {
-				Double ratingA = a.get(0).getRating() + a.get(1).getRating();
-				Double ratingB = b.get(0).getRating() + b.get(1).getRating();
+		Comparator<ScanResultPair> comp = new Comparator<ScanResultPair>() {
+			public int compare(ScanResultPair a, ScanResultPair b) {
+				Double ratingA = a.getResult1().getRating() + a.getResult2().getRating();
+				Double ratingB = b.getResult1().getRating() + b.getResult2().getRating();
 				return ratingA.compareTo(ratingB);
 			}
 		};
 
-		sortedResults = new ArrayList<List<ScanResult>>(results);
+		sortedResults = new ArrayList<ScanResultPair>(results);
 		Collections.sort(sortedResults, comp);
 
 		return sortedResults;
 	}
 
-	public static List<List<ScanResult>> getPossibleTALes(String sequence, Integer offset) {
-		List<List<ScanResult>> TALes = new ArrayList<List<ScanResult>>();
-		List<ScanResult> entry;
+	/**
+	 * @param sequence
+	 * @param offset
+	 * @return List of ScanResultPairs
+	 * Each pair of ScanResult objects corresponds to two TALe nucleuses which
+	 * attach at the given DNA sequence at a distance that is optimal for
+	 * cutting by the nucleus domains.
+	 */
+	private static List<ScanResultPair> getPossibleTALes(String sequence, Integer offset) {
+		List<ScanResultPair> TALes = new ArrayList<ScanResultPair>();
+		ScanResultPair entry;
 
 		int TALLengthMax = Constants.getMaxTALLength();
 		int TALLengthMin = Constants.getMinTALLength();
 		int NucleaseDistanceMin = Constants.getMinNucleaseDistance();
 		int NucleaseDistanceMax = Constants.getMaxNucleaseDistance();
 		int secondTALStart;
-		String seq1, seq2, seq1complement, seq2complement;
+		String seq1, seq2;
 
-		entry = new ArrayList<ScanResult>();
 		for (int firstTALLength = TALLengthMin; firstTALLength <= TALLengthMax; firstTALLength++) {
 			for (int secondTALLength = TALLengthMin; secondTALLength <= TALLengthMax; secondTALLength++) {
 				for (int distance = NucleaseDistanceMin; distance <= NucleaseDistanceMax; distance++) {
@@ -68,17 +75,14 @@ public class NucleaseScan {
 					 * results in 2 possible solutions per set of TAL positions.
 					 */
 					try {
-						entry = new ArrayList<ScanResult>();
-						entry.add(new ScanResult(Misc.getCounterSequence(seq1), offset));
-						entry.add(new ScanResult(seq2, secondTALStart));
+						entry = new ScanResultPair(new ScanResult(Misc.getCounterSequence(seq1), offset),
+								new ScanResult(seq2, secondTALStart));
 						TALes.add(entry);
 					} catch (Exception e) {
 					}
-					;
 					try {
-						entry = new ArrayList<ScanResult>();
-						entry.add(new ScanResult(seq1, offset));
-						entry.add(new ScanResult(Misc.getCounterSequence(seq2), secondTALStart));
+						entry = new ScanResultPair(new ScanResult(seq1, offset),
+								new ScanResult(Misc.getCounterSequence(seq2), secondTALStart));
 						TALes.add(entry);
 					} catch (Exception e) {
 					}

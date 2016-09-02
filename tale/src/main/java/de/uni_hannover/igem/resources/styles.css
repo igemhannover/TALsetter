@@ -1,0 +1,9 @@
+.text-field.invalid{
+	-fx-text-box-border: red;
+	-fx-focus-color: red;
+}
+
+.combo-box.list-cell.invalid{
+	-fx-text-box-border: red;
+	-fx-focus-color: red;
+}

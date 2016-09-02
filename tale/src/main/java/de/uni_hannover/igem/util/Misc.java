@@ -55,7 +55,7 @@ public class Misc {
 
 	}
 
-	public static List<Base> getSequence2Tale(String tale) {
+	public static List<Base> getSequenceList2Tale(String tale) {
 		List<Base> baseSequence = new ArrayList<Base>();
 		String[] taleSequence = tale.split("(?<=\\G..)");
 
@@ -65,6 +65,18 @@ public class Misc {
 			baseSequence.add(base);
 		}
 		return baseSequence;
+	}
+
+	public static String getSequence2Tale(String tale) {
+		StringBuffer sb = new StringBuffer();
+		String[] taleSequence = tale.split("(?<=\\G..)");
+
+		for (String currTale : taleSequence) {
+			Tale taleEnum = Tale.valueOf(currTale.toUpperCase());
+			Base base = Base2Tale.getBase2Tale(taleEnum);
+			sb.append(base.name());
+		}
+		return sb.toString();
 	}
 
 }

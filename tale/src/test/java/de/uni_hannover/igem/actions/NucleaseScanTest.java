@@ -1,9 +1,5 @@
 package de.uni_hannover.igem.actions;
 
-import de.uni_hannover.igem.util.Constants;
-import de.uni_hannover.igem.util.ScanResult;
-import de.uni_hannover.igem.util.Misc;
-
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -13,11 +9,15 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import de.uni_hannover.igem.util.Constants;
+import de.uni_hannover.igem.util.Misc;
+import de.uni_hannover.igem.util.ScanResult;
+
 public class NucleaseScanTest {
 	public static String sequence = "tatagcgc";
 
 	public void initializeNucleaseScanTest() {
-		Constants.initialize();
+
 		/*
 		 * define small variation ranges, so we have to specify less expected
 		 * values later on

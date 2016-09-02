@@ -1,5 +1,6 @@
 package de.uni_hannover.igem.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -32,13 +33,14 @@ public class TALRater {
 
 		double lengthRating = getLengthRating(taleSequence);
 
-		double bindingRating = getBindingRating(taleSequence);
+		double weakBindingRating = getWeakBindingRating(taleSequence);
 
+		double strongBindingRating = getStrongBindingRating(taleSequence);
 		// binding-strength is more important than length
 		// TODO implement function to rate the tal regarding strong bindings
 		// (see phabricator)
 
-		overallRating = (lengthRating + (bindingRating * 2)) / 3;
+		overallRating = (lengthRating + (weakBindingRating * 2) + (strongBindingRating * 2)) / 5;
 
 		return overallRating;
 
@@ -58,8 +60,84 @@ public class TALRater {
 		}
 	}
 
-	private static double getBindingRating(String sequence) {
-		List<Base> baseList = Misc.getSequence2Tale(sequence);
+	private static double getStrongBindingRating(String sequence) {
+		String originSequence = Misc.getSequence2Tale(sequence);
+		double penalty = 0.0;
+		int optimalCount = Constants.getOptimalStrongBinding();
+
+		int originSequencePartLength = originSequence.length() / optimalCount;
+
+		String[] originSequenceParts = originSequence.split("(?<=\\G.{" + originSequencePartLength + "})");
+		List<List<Integer>> bindingPos = new ArrayList<List<Integer>>();
+		for (String originSequencePart : originSequenceParts) {
+			List<Integer> bindings = getStrongBindingPos(originSequencePart);
+			if (!bindings.isEmpty()) {
+				bindingPos.add(getStrongBindingPos(originSequencePart));
+			}
+		}
+
+		// if length not equals there have to be at least one part without
+		// strong binding
+		if (bindingPos.size() == originSequenceParts.length) {
+			List<Integer> referencePos = bindingPos.get(0);
+
+			for (int i = 0; i < referencePos.size(); i++) {
+				int searchingPos = referencePos.get(i);
+
+				for (int j = 1; j < bindingPos.size(); j++) {
+					List<Integer> counterPos = bindingPos.get(j);
+
+					// if contains, no penalty, if not, try to find in near
+					// distance
+					if (!counterPos.contains(searchingPos)) {
+						boolean found = false;
+						for (int k = 1; k < optimalCount; k++) {
+							if (counterPos.contains(k)) {
+								penalty += k;
+								found = true;
+							}
+						}
+						// nothing found in near distance, so to bad to get
+						// points
+						if (!found) {
+							return 0.0;
+						}
+					}
+
+				}
+			}
+
+		}
+
+		else {
+			return 0.0;
+		}
+
+		return 1 - penalty / sequence.length();
+
+	}
+
+	private static List<Integer> getStrongBindingPos(String sequence) {
+
+		List<Integer> bindingPos = new ArrayList<Integer>();
+
+		for (int i = 0; i < sequence.length(); i++) {
+			char c = sequence.charAt(i);
+			String cString = String.valueOf(c);
+			Base b = Base.valueOf(cString);
+
+			if (b.getStrength() == BindingStrength.STRONG) {
+				bindingPos.add(i);
+			}
+
+		}
+
+		return bindingPos;
+
+	}
+
+	private static double getWeakBindingRating(String sequence) {
+		List<Base> baseList = Misc.getSequenceList2Tale(sequence);
 		TreeMap<Integer, Integer> weakRowLength2Counter = new TreeMap<Integer, Integer>();
 		double overallRating = 0;
 		int weakBindingRow = 0;
@@ -70,8 +148,7 @@ public class TALRater {
 			}
 
 			else if (currBase.getStrength() == BindingStrength.STRONG) {
-
-				if (weakRowLength2Counter.get(weakBindingRow) == 0) {
+				if (weakRowLength2Counter.get(weakBindingRow) == null) {
 					weakRowLength2Counter.put(new Integer(weakBindingRow), 1);
 				}
 

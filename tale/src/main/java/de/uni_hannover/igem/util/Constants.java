@@ -9,15 +9,16 @@ public class Constants {
 	private static Map<String, Object> values;
 	private static Map<String, String> descriptions;
 
-	public static void initialize() {
+	static {
 		values = new HashMap<String, Object>();
 		setMinTALLength(12);
 		setMaxTALLength(24);
 		setMinNucleaseDistance(12);
 		setMaxNucleaseDistance(16);
 		setOptimalTALLength(18);
-		setMinWeakBindung(1);
+		setMinWeakBinding(1);
 		setMaxWeakBindung(5);
+		setOptimalStrongBinding(4);
 	}
 
 	/* TAL min & max lengths */
@@ -62,7 +63,7 @@ public class Constants {
 		return (Integer) values.get("tal.length.optimal");
 	}
 
-	public static void setMinWeakBindung(Integer value) {
+	public static void setMinWeakBinding(Integer value) {
 		values.put("tal.weakbinding.min", (Object) value);
 	}
 
@@ -76,6 +77,14 @@ public class Constants {
 
 	public static Integer getMaxWeakBinding() {
 		return (Integer) values.get("tal.weakbinding.max");
+	}
+
+	public static void setOptimalStrongBinding(Integer value) {
+		values.put("tal.strongbinding.optimal", (Object) value);
+	}
+
+	public static Integer getOptimalStrongBinding() {
+		return (Integer) values.get("tal.strongbinding.optimal");
 	}
 
 }

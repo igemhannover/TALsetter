@@ -11,86 +11,41 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
 
 public class MainContentViewController {
 
 	@FXML // fx:id="actionCbx"
 	private ComboBox<String> actionCbx;
-
 	@FXML // fx:id="basesTxf"
 	private TextField basesTxf;
+
+	@FXML // fx:id="contentResultSplitPane"
+	private SplitPane contentResultSplitPane; // Value injected by FXMLLoader
 
 	@FXML // fx:id="nextBtn"
 	private Button nextBtn;
 
 	private ObservableList<String> observableActionList = FXCollections.observableList(new ArrayList<String>());
 
-	// Handler for Button[fx:id="nextBtn"] onAction
-	@FXML
-	void startAction(ActionEvent event) {
-		if (checkInputValide()) {
-			Stage stage = new Stage();
-			stage.setTitle(actionCbx.getSelectionModel().getSelectedItem());
-			stage.setScene(loadSelectedAction());
-			stage.show();
-		}
-	}
+	@FXML // fx:id="resultViewPane"
+	private AnchorPane resultViewPane;
 
-	/**
-	 * The default is a ScanView with the ExactScan.
-	 * 
-	 * @return Scene to the selected Action
-	 */
-	private Scene loadSelectedAction() {
-		Scene result = new Scene(new AnchorPane());
-		FXMLLoader loader;
-		switch (getSelectedAction()) {
-		case NUCLEUS_SCAN:
-			loader = new FXMLLoader(getClass().getResource("/de/uni_hannover/igem/view/NucleusesScanView.fxml"));
-			try {
-				Parent p = (Parent) loader.load();
-				NucleusesScanViewController nucleaseScanController = loader
-						.<NucleusesScanViewController> getController();
-				nucleaseScanController.initData(getSelectedAction(), basesTxf.getText());
-				return new Scene(p);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			break;
-		default:
-			loader = new FXMLLoader(getClass().getResource("/de/uni_hannover/igem/view/ScanView.fxml"));
-			try {
-				Parent p = (Parent) loader.load();
-				ScanViewController scanController = loader.<ScanViewController> getController();
-				scanController.initData(getSelectedAction(), basesTxf.getText());
-				return new Scene(p);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			break;
-		}
+	@FXML // fx:id="resultViewTabPane"
+	private TabPane resultViewTabPane;
 
-		return result;
-	}
+	@FXML // fx:id="selectActionPane"
+	private GridPane selectActionPane;
 
-	/**
-	 * Default ExactScan
-	 * 
-	 * @return selected Action of ComboBox actionCbx
-	 */
-	private Actions getSelectedAction() {
-		if (actionCbx.getSelectionModel().getSelectedItem().equals(Actions.NUCLEUS_SCAN.toString())) {
-			return Actions.NUCLEUS_SCAN;
-		}
-		return Actions.EXACT_SCAN; // DEFAULT
-	}
+	private SingleSelectionModel<Tab> selectionModel;
 
 	/**
 	 * style TextField red and show warning/error
@@ -110,6 +65,18 @@ public class MainContentViewController {
 		return true;
 	}
 
+	/**
+	 * Default ExactScan
+	 * 
+	 * @return selected Action of ComboBox actionCbx
+	 */
+	private Actions getSelectedAction() {
+		if (actionCbx.getSelectionModel().getSelectedItem().equals(Actions.NUCLEUS_SCAN.toString())) {
+			return Actions.NUCLEUS_SCAN;
+		}
+		return Actions.EXACT_SCAN; // DEFAULT
+	}
+
 	@FXML // This method is called by the FXMLLoader when initialization is
 			// complete
 	void initialize() {
@@ -125,6 +92,55 @@ public class MainContentViewController {
 				}
 			}
 		});
+		selectionModel = resultViewTabPane.getSelectionModel();
+	}
+
+	/**
+	 * The default is a ScanView with the ExactScan.
+	 * 
+	 * @return Scene to the selected Action
+	 */
+	private AnchorPane loadSelectedAction() {
+		AnchorPane result = new AnchorPane();
+		FXMLLoader loader;
+		switch (getSelectedAction()) {
+		case NUCLEUS_SCAN:
+			loader = new FXMLLoader(getClass().getResource("/de/uni_hannover/igem/view/NucleusesScanView.fxml"));
+			try {
+				AnchorPane nucleaseScan = (AnchorPane) loader.load();
+				NucleusesScanViewController nucleaseScanController = loader
+						.<NucleusesScanViewController> getController();
+				nucleaseScanController.initData(getSelectedAction(), basesTxf.getText());
+				return nucleaseScan;
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			break;
+		default:
+			loader = new FXMLLoader(getClass().getResource("/de/uni_hannover/igem/view/ScanView.fxml"));
+			try {
+				AnchorPane scan = (AnchorPane) loader.load();
+				ScanViewController scanController = loader.<ScanViewController> getController();
+				scanController.initData(getSelectedAction(), basesTxf.getText());
+				return scan;
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			break;
+		}
+
+		return result;
+	}
+
+	// Handler for Button[fx:id="nextBtn"] onAction
+	@FXML
+	void startAction(ActionEvent event) {
+		if (checkInputValide()) {
+			Tab resultTab = new Tab(actionCbx.getSelectionModel().getSelectedItem());
+			resultViewTabPane.getTabs().add(resultTab);
+			resultTab.setContent(loadSelectedAction());
+			selectionModel.select(resultTab);
+		}
 	}
 
 }

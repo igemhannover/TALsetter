@@ -20,6 +20,7 @@ public class Main extends Application {
 
 		stage.setTitle("TALsetter");
 		stage.setScene(scene);
+		stage.setMaximized(true);
 		Image logo = new Image(getClass().getResourceAsStream("resources/images/hannover_logo.png"));
 		stage.getIcons().add(logo);
 		stage.show();

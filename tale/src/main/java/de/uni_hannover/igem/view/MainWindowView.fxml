@@ -24,18 +24,14 @@
         </Menu>
       </menus>
     </MenuBar>
-    <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
-      <content>
-        <AnchorPane id="Content" minHeight="125.0" minWidth="200.0" prefHeight="125.0" prefWidth="200.0">
-          <children>
-            <fx:include id="contentPane" source="MainContentView.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-              </padding>
-            </fx:include>
-          </children>
-        </AnchorPane>
-      </content>
-    </ScrollPane>
+    <AnchorPane id="Content" minHeight="125.0" minWidth="200.0" prefHeight="125.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+      <children>
+        <fx:include id="contentPane" source="MainContentView.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+          </padding>
+        </fx:include>
+      </children>
+    </AnchorPane>
   </children>
 </AnchorPane>

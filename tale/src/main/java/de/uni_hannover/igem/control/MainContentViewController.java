@@ -13,11 +13,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
@@ -44,6 +46,17 @@ public class MainContentViewController {
 
 	@FXML // fx:id="selectActionPane"
 	private GridPane selectActionPane;
+	
+    @FXML // fx:id="targetOrganismHuman"
+    private RadioButton targetOrganismHuman;
+
+    @FXML // fx:id="targetOrganismInvitro"
+    private RadioButton targetOrganismInvitro;
+
+    @FXML // fx:id="targetOrganismPlant"
+    private RadioButton targetOrganismPlant;
+    
+    final ToggleGroup targetOrganismGroup = new ToggleGroup();
 
 	private SingleSelectionModel<Tab> selectionModel;
 
@@ -92,6 +105,16 @@ public class MainContentViewController {
 				}
 			}
 		});
+
+		targetOrganismHuman.setToggleGroup(targetOrganismGroup);
+		targetOrganismInvitro.setToggleGroup(targetOrganismGroup);
+		targetOrganismPlant.setToggleGroup(targetOrganismGroup);
+		
+		//TODO function of target organisms
+		targetOrganismHuman.setDisable(true);
+		targetOrganismInvitro.setDisable(true);
+		targetOrganismPlant.setDisable(true);
+
 		selectionModel = resultViewTabPane.getSelectionModel();
 	}
 

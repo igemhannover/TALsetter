@@ -1,6 +1,8 @@
 package de.uni_hannover.igem.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public enum Base2Tale {
@@ -29,4 +31,30 @@ public enum Base2Tale {
 		return reverseMap.get(tale);
 	}
 
+	public static List<String> nucleotides2rvds(String nucleotides) throws Exception {
+		List<String> result = new ArrayList<String>();
+		String nucleotide;
+		for (int i = 0; i < nucleotides.length(); i++) {
+			nucleotide = nucleotides.substring(i, i+1);
+			result.add(nucleotide2rvd(nucleotide));
+		}
+		return result;
+	}
+
+	public static String nucleotide2rvd(String nucleotide) throws Exception {
+		switch(nucleotide.toLowerCase().charAt(0)) {
+		case 'a':
+			return "NI";
+		case 'c':
+			return "HD";
+		case 'g':
+			return "NN";
+		case 't':
+			return "NG";
+		case 'x':
+			return "NS";
+		default:
+			throw new Exception("Error: no RDV known for nucleotide `" + nucleotide + "`.");
+		}
+	}
 }

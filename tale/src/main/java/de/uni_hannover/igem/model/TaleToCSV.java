@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.List;
 
+/* Pipetting robot interface */
 public class TaleToCSV {
 	public static ArrayList<ArrayList<String>> makeTable(String string) throws Exception {
 		ArrayList<String> line = new ArrayList<String>(Arrays.asList(
@@ -73,6 +73,7 @@ public class TaleToCSV {
 				 * last RVD and there are <6 RVDs in the piece */
 				offset += number_of_rvd_types * nucleotides_per_piece;
 			}
+			offset += relative_index; /* e.g. move from NI1 to NI4 on 4th RVD (if it's a NI) */
 			line.set(pos_rvds + offset, "1");
 			
 			/* add the row on the last iteration or when piece ends */

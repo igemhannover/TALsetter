@@ -49,7 +49,7 @@ public class NucleaseScan {
 	 * attach at the given DNA sequence at a distance that is optimal for
 	 * cutting by the nucleus domains.
 	 */
-	private static List<ScanResultPair> getPossibleTALes(String sequence, Integer offset) {
+	public static List<ScanResultPair> getPossibleTALes(String sequence, Integer offset) {
 		List<ScanResultPair> TALes = new ArrayList<ScanResultPair>();
 		ScanResultPair entry;
 

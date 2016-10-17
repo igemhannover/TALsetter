@@ -70,23 +70,15 @@ public class NucleaseScan {
 					seq2 = sequence.substring(secondTALStart, secondTALStart + secondTALLength);
 
 					/*
-					 * One of the TALEN sequences needs to be inverted, because
-					 * they bind on opposite strands on the double helix. This
-					 * results in 2 possible solutions per set of TAL positions.
+					 * The sequence of the second TALEN needs to be inverted, because
+					 * it binds on the opposite strand of the DNA double helix.
 					 */
-					try {
-						entry = new ScanResultPair(new ScanResult(Misc.getCounterSequence(seq1), offset),
-								new ScanResult(seq2, secondTALStart));
-						TALes.add(entry);
-					} catch (Exception e) {
-					}
 					try {
 						entry = new ScanResultPair(new ScanResult(seq1, offset),
 								new ScanResult(Misc.getCounterSequence(seq2), secondTALStart));
 						TALes.add(entry);
 					} catch (Exception e) {
-					}
-					;
+					};
 				}
 			}
 		}

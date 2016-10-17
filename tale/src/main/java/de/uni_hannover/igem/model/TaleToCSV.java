@@ -89,7 +89,7 @@ public class TaleToCSV {
 	public static void table2csv(ArrayList<ArrayList<String>> table, String filename) throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter(new File(filename));
 		for (ArrayList<String> row : table) {
-			pw.write(String.join(", ", row) + "\n");
+			pw.write(String.join(";", row) + "\n");
 		}
         pw.close();
 	}

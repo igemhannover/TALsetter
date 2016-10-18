@@ -11,15 +11,15 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
@@ -57,10 +57,29 @@ public class MainContentViewController {
 	private boolean checkInputValide() {
 		if (basesTxf.getText().length() < 20) {
 			basesTxf.getStyleClass().add("invalid");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error Dialog");
+			alert.setHeaderText(null);
+			alert.setContentText("Input is too short. You need a minimum of 20 nucleotides.");
+			alert.showAndWait();
+			return false;
+		}
+		if (!basesTxf.getText().matches("[atgcxATGCX]+")) {
+			basesTxf.getStyleClass().add("invalid");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error Dialog");
+			alert.setHeaderText(null);
+			alert.setContentText("Only the followed bases are allowed: A, T, G, C, X.");
+			alert.showAndWait();
 			return false;
 		}
 		if (actionCbx.getSelectionModel().getSelectedItem() == null) {
 			actionCbx.getStyleClass().add("invalid");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error Dialog");
+			alert.setHeaderText(null);
+			alert.setContentText("No action selected!");
+			alert.showAndWait();
 			return false;
 		}
 		// TODO more checks?
@@ -75,6 +94,8 @@ public class MainContentViewController {
 	private Actions getSelectedAction() {
 		if (actionCbx.getSelectionModel().getSelectedItem().equals(Actions.NUCLEASE_SCAN.toString())) {
 			return Actions.NUCLEASE_SCAN;
+		} else if (actionCbx.getSelectionModel().getSelectedItem().equals(Actions.GUESS_SCAN.toString())) {
+			return Actions.GUESS_SCAN;
 		}
 		return Actions.EXACT_SCAN; // DEFAULT
 	}

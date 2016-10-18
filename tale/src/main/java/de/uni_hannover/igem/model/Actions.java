@@ -1,7 +1,7 @@
 package de.uni_hannover.igem.model;
 
 public enum Actions {
-	EXACT_SCAN("Exact Scan"), NUCLEASE_SCAN("Nuclease Scan");
+	EXACT_SCAN("Exact Scan"), NUCLEASE_SCAN("Nuclease Scan"), GUESS_SCAN("Guess Scan");
 	private final String name;
 
 	/**

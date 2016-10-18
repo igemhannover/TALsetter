@@ -37,9 +37,10 @@ public class NucleaseScanTest {
 			return;
 		}
 		/*
-		 * The sequence of the second TALEN needs to be inverted, because
-		 * it binds on the opposite strand of the DNA double helix.
+		 * One of the sequence needs to be inverted, because the TALENs bind on
+		 * opposite strands of the twin helix
 		 */
+		set.add(Arrays.asList(new ScanResult(seq1complement, pos1), new ScanResult(seq2, pos2)));
 		set.add(Arrays.asList(new ScanResult(seq1, pos1), new ScanResult(seq2complement, pos2)));
 	}
 
@@ -48,8 +49,8 @@ public class NucleaseScanTest {
 		initializeNucleaseScanTest();
 
 		/* Start at position 1, so our sequence is "atagcgc" */
-		HashSet<List<ScanResult>> calculated;
-		calculated = new HashSet<List<ScanResult>>(NucleaseScan.getPossibleTALes(sequence, 1));
+		HashSet<ScanResultPair> calculated;
+		calculated = new HashSet<ScanResultPair>(NucleaseScan.scanSequence(sequence));
 		Set<List<ScanResult>> expected = new HashSet<List<ScanResult>>();
 
 		/* first length = 2, second length = 2, distance = 0 or 1 */
@@ -73,8 +74,8 @@ public class NucleaseScanTest {
 		initializeNucleaseScanTest();
 
 		/* Start at position 3 this time, so our sequence is "agcgc" */
-		HashSet<List<ScanResult>> calculated = new HashSet<List<ScanResult>>(
-				NucleaseScan.getPossibleTALes(sequence, 3));
+		HashSet<ScanResultPair> calculated = new HashSet<ScanResultPair>(
+				NucleaseScan.scanSequence(sequence));
 		Set<List<ScanResult>> expected = new HashSet<List<ScanResult>>();
 
 		addResult(expected, "ag", 3, "cg", 5);

@@ -4,10 +4,10 @@
  **/
 package de.uni_hannover.igem.control;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import de.uni_hannover.igem.actions.ExactScan;
+import de.uni_hannover.igem.actions.GuessScan;
 import de.uni_hannover.igem.model.Actions;
 import de.uni_hannover.igem.model.TaleToCSV;
 import de.uni_hannover.igem.util.ScanResult;
@@ -84,6 +84,9 @@ public class ScanViewController {
 		switch (action) {
 		case EXACT_SCAN:
 			resultList = FXCollections.observableArrayList(ExactScan.getResults(sequence));
+			break;
+		case GUESS_SCAN:
+			resultList = FXCollections.observableArrayList(GuessScan.getResults(sequence));
 			break;
 		case NUCLEASE_SCAN:
 			System.out.println("NUCLEUS_SCAN has own controller");

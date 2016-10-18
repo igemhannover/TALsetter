@@ -1,6 +1,5 @@
 package de.uni_hannover.igem;
 
-import de.uni_hannover.igem.actions.GuessScan;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,13 +25,11 @@ public class Main extends Application {
 		stage.setMaximized(true);
 		Image logo = new Image(getClass().getResourceAsStream("resources/images/hannover_logo.png"));
 		stage.getIcons().add(logo);
-		stage.s
-
-		();
+		stage.show();
 	}
 
 	public static void main(String[] args) {
-    	GuessScan.getResults("taca")
-    }
+		launch(args);
+	}
 
 }

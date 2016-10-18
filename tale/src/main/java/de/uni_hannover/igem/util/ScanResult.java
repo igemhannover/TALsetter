@@ -51,12 +51,7 @@ public class ScanResult {
 
 	public Double getRating() {
 		if (rating == null) {
-			try {
-				rating = TALRater.getRating(String.join("", Base2Tale.nucleotides2rvds(sequence)));
-			} catch (Exception e) {
-				/* invalid nucleotide used */
-				e.printStackTrace();
-			}
+			rating = 1.0;
 		}
 		return rating;
 	}

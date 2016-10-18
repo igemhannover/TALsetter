@@ -1,5 +1,7 @@
 package de.uni_hannover.igem.util;
 
+import de.uni_hannover.igem.model.Base2Tale;
+
 public class ScanResult {
 	private String sequence;
 	private Integer position;
@@ -49,7 +51,12 @@ public class ScanResult {
 
 	public Double getRating() {
 		if (rating == null) {
-			rating = 1.0;
+			try {
+				rating = TALRater.getRating(String.join("", Base2Tale.nucleotides2rvds(sequence)));
+			} catch (Exception e) {
+				/* invalid nucleotide used */
+				e.printStackTrace();
+			}
 		}
 		return rating;
 	}

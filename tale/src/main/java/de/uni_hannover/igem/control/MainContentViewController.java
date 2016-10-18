@@ -46,17 +46,6 @@ public class MainContentViewController {
 
 	@FXML // fx:id="selectActionPane"
 	private GridPane selectActionPane;
-	
-    @FXML // fx:id="targetOrganismHuman"
-    private RadioButton targetOrganismHuman;
-
-    @FXML // fx:id="targetOrganismInvitro"
-    private RadioButton targetOrganismInvitro;
-
-    @FXML // fx:id="targetOrganismPlant"
-    private RadioButton targetOrganismPlant;
-    
-    final ToggleGroup targetOrganismGroup = new ToggleGroup();
 
 	private SingleSelectionModel<Tab> selectionModel;
 
@@ -105,15 +94,6 @@ public class MainContentViewController {
 				}
 			}
 		});
-
-		targetOrganismHuman.setToggleGroup(targetOrganismGroup);
-		targetOrganismInvitro.setToggleGroup(targetOrganismGroup);
-		targetOrganismPlant.setToggleGroup(targetOrganismGroup);
-		
-		//TODO function of target organisms
-		targetOrganismHuman.setDisable(true);
-		targetOrganismInvitro.setDisable(true);
-		targetOrganismPlant.setDisable(true);
 
 		selectionModel = resultViewTabPane.getSelectionModel();
 	}

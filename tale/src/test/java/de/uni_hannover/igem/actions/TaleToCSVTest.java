@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import de.uni_hannover.igem.model.Base2Tale;
 import de.uni_hannover.igem.model.TaleToCSV;
 
 import de.uni_hannover.igem.util.Constants;
@@ -67,8 +68,8 @@ public class TaleToCSVTest {
 				"0", "0", "0", "0", "0", /* sNG */
 				"0", "0", "0", "0", "0"  /* sNH */
 		)));
-		
-		ArrayList<ArrayList<String>> obtainedResult = TaleToCSV.makeTable("gattaca");
+
+		ArrayList<ArrayList<String>> obtainedResult = TaleToCSV.makeTable(String.join("", Base2Tale.nucleotides2rvds("gattaca")));
 		TaleToCSV.table2csv(obtainedResult, "/tmp/out_produced.csv");
 		TaleToCSV.table2csv(expectedResult, "/tmp/out_expected.csv");
 		assertEquals(obtainedResult, expectedResult);

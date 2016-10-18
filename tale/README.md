@@ -2,7 +2,7 @@
 
 ## Requirements
 If you only want to use the TALsetter you don't need any further libraries. 
-Just download the jar at ...
+Just download the jar at http://2016.igem.org/wiki/images/e/ed/T--Hannover--talsetter.zip
 
 For further development you need a mavenized version of jstacs. 
 You can find this at https://github.com/igemhannover/jstacs

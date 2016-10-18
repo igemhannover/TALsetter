@@ -19,7 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class NucleusesScanViewController {
+public class NucleaseScanViewController {
 
 	@FXML // fx:id="actionResultView"
 	private TableView<ScanResultPair> actionResultView;

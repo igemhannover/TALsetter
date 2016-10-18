@@ -71,7 +71,7 @@ public class ScanViewController {
 		case EXACT_SCAN:
 			resultList = FXCollections.observableArrayList(ExactScan.getResults(sequence));
 			break;
-		case NUCLEUS_SCAN:
+		case NUCLEASE_SCAN:
 			System.out.println("NUCLEUS_SCAN has own controller");
 			break;
 		default:

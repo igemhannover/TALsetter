@@ -4,8 +4,12 @@
  **/
 package de.uni_hannover.igem.control;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 import de.uni_hannover.igem.actions.ExactScan;
 import de.uni_hannover.igem.model.Actions;
+import de.uni_hannover.igem.model.TaleToCSV;
 import de.uni_hannover.igem.util.ScanResult;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -51,7 +55,17 @@ public class ScanViewController {
 	@FXML
 	void export(ActionEvent event) {
 		ScanResult exportSelection = actionResultView.getSelectionModel().getSelectedItem();
-		// TODO handle the event here
+		String filename1 = "TALE.csv";
+		String sequence = exportSelection.getSequence();
+		System.out.println(sequence);
+		ArrayList<ArrayList<String>> csv_table;
+		try {
+			csv_table = TaleToCSV.makeTable(sequence);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return;
+		}
 	}
 
 	/**

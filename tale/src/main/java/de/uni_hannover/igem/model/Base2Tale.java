@@ -44,15 +44,15 @@ public enum Base2Tale {
 	public static String nucleotide2rvd(String nucleotide) throws Exception {
 		switch(nucleotide.toLowerCase().charAt(0)) {
 		case 'a':
-			return "NI";
+			return "ni";
 		case 'c':
-			return "HD";
+			return "hd";
 		case 'g':
-			return "NN";
+			return "nn";
 		case 't':
-			return "NG";
+			return "ng";
 		case 'x':
-			return "NS";
+			return "ns";
 		default:
 			throw new Exception("Error: no RDV known for nucleotide `" + nucleotide + "`.");
 		}

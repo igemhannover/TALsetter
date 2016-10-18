@@ -4,9 +4,14 @@
  **/
 package de.uni_hannover.igem.control;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 import de.uni_hannover.igem.actions.NucleaseScan;
 import de.uni_hannover.igem.actions.ScanResultPair;
 import de.uni_hannover.igem.model.Actions;
+import de.uni_hannover.igem.model.Base2Tale;
+import de.uni_hannover.igem.model.TaleToCSV;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,7 +59,26 @@ public class NucleaseScanViewController {
 	@FXML
 	void export(ActionEvent event) {
 		ScanResultPair exportSelection = actionResultView.getSelectionModel().getSelectedItem();
-		// TODO handle the event here
+		String filename1 = "TALEN_First.csv";
+		String filename2 = "TALEN_Second.csv";
+				
+		ArrayList<ArrayList<String>> csv_table;
+		String sequence;
+		try {
+			sequence = String.join("", Base2Tale.nucleotides2rvds(exportSelection.getSequence1()));
+			csv_table = TaleToCSV.makeTable(sequence);
+			TaleToCSV.table2csv(csv_table, filename1);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			return;
+		}
+
+		try {
+			sequence = String.join("", Base2Tale.nucleotides2rvds(exportSelection.getSequence2()));
+			TaleToCSV.table2csv(csv_table, filename2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void initData(Actions action, String sequence) {

@@ -15,7 +15,7 @@ After downloading the jar you can start the program with "java -jar tale-#versio
 Please replace #version# with the version of your TALsetter.
 
 
-## Tanks to
+## Thanks to
 jstacs - http://www.jstacs.de/
 
 ## Licence

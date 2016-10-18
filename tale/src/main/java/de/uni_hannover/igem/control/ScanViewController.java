@@ -14,6 +14,7 @@ import de.uni_hannover.igem.actions.GuessScan;
 import de.uni_hannover.igem.model.Actions;
 import de.uni_hannover.igem.model.Base2Tale;
 import de.uni_hannover.igem.model.TaleToCSV;
+import de.uni_hannover.igem.util.Constants;
 import de.uni_hannover.igem.util.ScanResult;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -60,6 +61,7 @@ public class ScanViewController {
 	void export(ActionEvent event) {
 		ScanResult exportSelection = actionResultView.getSelectionModel().getSelectedItem();
 		String filename_sequence1 = "TALE.txt";
+		String filename_pipetting_instructions1 = "TALE.csv";
 		/* export TALE sequence */
 		try {
 			PrintWriter pw = new PrintWriter(new File(filename_sequence1));
@@ -68,6 +70,21 @@ public class ScanViewController {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 			return;
+		}
+		
+		/* export pipetting instructions if talen has appropriate length */
+		String sequence = exportSelection.getSequence();
+		if ((sequence.length() / 2 <= Constants.getMaxTALLength()) &&
+			(sequence.length() / 2 >= Constants.getMinTALLength())) {
+			try {
+				ArrayList<ArrayList<String>> csv_table = TaleToCSV.makeTable(sequence);
+				TaleToCSV.table2csv(csv_table, filename_pipetting_instructions1);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			System.err.println("Error: cannot construct pipetting instructions for TALE sequence of invalid length");			
 		}
 	}
 

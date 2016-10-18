@@ -19,6 +19,7 @@ import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -117,6 +118,7 @@ public class MainContentViewController {
 		});
 
 		selectionModel = resultViewTabPane.getSelectionModel();
+		resultViewTabPane.setTabClosingPolicy(TabClosingPolicy.SELECTED_TAB);
 	}
 
 	/**

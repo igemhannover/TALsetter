@@ -60,9 +60,11 @@ public class Misc {
 		String[] taleSequence = tale.split("(?<=\\G..)");
 
 		for (String currTale : taleSequence) {
-			Tale taleEnum = Tale.valueOf(currTale.toUpperCase());
-			Base base = Base2Tale.getBase2Tale(taleEnum);
-			baseSequence.add(base);
+			if (!currTale.isEmpty()) {
+				Tale taleEnum = Tale.valueOf(currTale.toUpperCase());
+				Base base = Base2Tale.getBase2Tale(taleEnum);
+				baseSequence.add(base);
+			}
 		}
 		return baseSequence;
 	}
@@ -72,9 +74,11 @@ public class Misc {
 		String[] taleSequence = tale.split("(?<=\\G..)");
 
 		for (String currTale : taleSequence) {
-			Tale taleEnum = Tale.valueOf(currTale.toUpperCase());
-			Base base = Base2Tale.getBase2Tale(taleEnum);
-			sb.append(base.name());
+			if (!currTale.isEmpty()) {
+				Tale taleEnum = Tale.valueOf(currTale.toUpperCase());
+				Base base = Base2Tale.getBase2Tale(taleEnum);
+				sb.append(base.name());
+			}
 		}
 		return sb.toString();
 	}

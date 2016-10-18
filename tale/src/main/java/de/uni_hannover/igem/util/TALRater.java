@@ -164,8 +164,8 @@ public class TALRater {
 
 		int minWeakBindingRow = Constants.getMinWeakBinding();
 		int maxWeakBindingRow = Constants.getMaxWeakBinding();
-		int smallestRow = weakRowLength2Counter.firstKey();
-		int highestRow = weakRowLength2Counter.lastKey();
+		int smallestRow = weakRowLength2Counter.isEmpty() ? 0 : weakRowLength2Counter.firstKey();
+		int highestRow = weakRowLength2Counter.isEmpty() ? 0 : weakRowLength2Counter.lastKey();
 
 		if (smallestRow >= minWeakBindingRow && highestRow <= maxWeakBindingRow) {
 			for (Integer weakRowLength : weakRowLength2Counter.keySet()) {

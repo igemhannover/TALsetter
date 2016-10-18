@@ -25,5 +25,9 @@ public class Main extends Application {
 		stage.getIcons().add(logo);
 		stage.show();
 	}
+	
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 }

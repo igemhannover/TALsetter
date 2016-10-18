@@ -37,10 +37,9 @@ public class NucleaseScanTest {
 			return;
 		}
 		/*
-		 * One of the sequence needs to be inverted, because the TALENs bind on
-		 * opposite strands of the twin helix
+		 * The sequence of the second TALEN needs to be inverted, because
+		 * it binds on the opposite strand of the DNA double helix.
 		 */
-		set.add(Arrays.asList(new ScanResult(seq1complement, pos1), new ScanResult(seq2, pos2)));
 		set.add(Arrays.asList(new ScanResult(seq1, pos1), new ScanResult(seq2complement, pos2)));
 	}
 

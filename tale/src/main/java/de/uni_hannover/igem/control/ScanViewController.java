@@ -63,7 +63,7 @@ public class ScanViewController {
 		/* export TALE sequence */
 		try {
 			PrintWriter pw = new PrintWriter(new File(filename_sequence1));
-			pw.write(String.join("-", Base2Tale.nucleotides2rvds(exportSelection.getSequence())));
+			pw.write(exportSelection.getSequence());
 	        pw.close();
 		} catch (Exception e1) {
 			e1.printStackTrace();

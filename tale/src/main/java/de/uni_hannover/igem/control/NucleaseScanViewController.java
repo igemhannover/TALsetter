@@ -4,7 +4,9 @@
  **/
 package de.uni_hannover.igem.control;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import de.uni_hannover.igem.actions.NucleaseScan;
@@ -59,26 +61,49 @@ public class NucleaseScanViewController {
 	@FXML
 	void export(ActionEvent event) {
 		ScanResultPair exportSelection = actionResultView.getSelectionModel().getSelectedItem();
-		String filename1 = "TALEN_First.csv";
-		String filename2 = "TALEN_Second.csv";
+		String filename_pipetting_instructions1 = "TALEN_First.csv";
+		String filename_pipetting_instructions2 = "TALEN_Second.csv";
+		String filename_sequence1 = "TALEN_First.txt";
+		String filename_sequence2 = "TALEN_Second.txt";
 				
 		ArrayList<ArrayList<String>> csv_table;
 		String sequence;
+
+		/* export the pipetting instructions */
 		try {
 			sequence = String.join("", Base2Tale.nucleotides2rvds(exportSelection.getSequence1()));
 			csv_table = TaleToCSV.makeTable(sequence);
-			TaleToCSV.table2csv(csv_table, filename1);
+			TaleToCSV.table2csv(csv_table, filename_pipetting_instructions1);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			return;
+		}
+		try {
+			sequence = String.join("", Base2Tale.nucleotides2rvds(exportSelection.getSequence2()));
+			TaleToCSV.table2csv(csv_table, filename_pipetting_instructions2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		/* export the TALEN sequences */
+		try {
+			PrintWriter pw = new PrintWriter(new File(filename_sequence1));
+			pw.write(String.join("-", Base2Tale.nucleotides2rvds(exportSelection.getSequence1())));
+	        pw.close();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			return;
+		}
+		try {
+			PrintWriter pw = new PrintWriter(new File(filename_sequence2));
+			pw.write(String.join("-", Base2Tale.nucleotides2rvds(exportSelection.getSequence2())));
+	        pw.close();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 			return;
 		}
 
-		try {
-			sequence = String.join("", Base2Tale.nucleotides2rvds(exportSelection.getSequence2()));
-			TaleToCSV.table2csv(csv_table, filename2);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
 	}
 
 	public void initData(Actions action, String sequence) {

@@ -4,11 +4,15 @@
  **/
 package de.uni_hannover.igem.control;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import de.uni_hannover.igem.actions.ExactScan;
 import de.uni_hannover.igem.actions.GuessScan;
 import de.uni_hannover.igem.model.Actions;
+import de.uni_hannover.igem.model.Base2Tale;
 import de.uni_hannover.igem.model.TaleToCSV;
 import de.uni_hannover.igem.util.ScanResult;
 import javafx.beans.binding.Bindings;
@@ -55,14 +59,13 @@ public class ScanViewController {
 	@FXML
 	void export(ActionEvent event) {
 		ScanResult exportSelection = actionResultView.getSelectionModel().getSelectedItem();
-		String filename1 = "TALE.csv";
-		String sequence = exportSelection.getSequence();
-		System.out.println(sequence);
-		ArrayList<ArrayList<String>> csv_table;
+		String filename_sequence1 = "TALE.txt";
+		/* export TALE sequence */
 		try {
-			csv_table = TaleToCSV.makeTable(sequence);
+			PrintWriter pw = new PrintWriter(new File(filename_sequence1));
+			pw.write(String.join("-", Base2Tale.nucleotides2rvds(exportSelection.getSequence())));
+	        pw.close();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			return;
 		}

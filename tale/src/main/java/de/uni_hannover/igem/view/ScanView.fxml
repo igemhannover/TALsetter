@@ -35,7 +35,7 @@
             <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Sequence" fx:id="seqCol" />
           </columns>
         </TableView>
-        <Button fx:id="exportButton" contentDisplay="LEFT" mnemonicParsing="false" onAction="#export" text="Export CSV" textAlignment="LEFT">
+        <Button fx:id="exportButton" contentDisplay="LEFT" mnemonicParsing="false" onAction="#export" text="Export" textAlignment="LEFT">
           <VBox.margin>
             <Insets />
           </VBox.margin>

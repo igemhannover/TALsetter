@@ -80,6 +80,7 @@ public class NucleaseScanViewController {
 		}
 		try {
 			sequence = String.join("", Base2Tale.nucleotides2rvds(exportSelection.getSequence2()));
+			csv_table = TaleToCSV.makeTable(sequence);
 			TaleToCSV.table2csv(csv_table, filename_pipetting_instructions2);
 		} catch (Exception e) {
 			e.printStackTrace();
